@@ -1,0 +1,39 @@
+{
+    "projects": [
+        {
+            "remote": "openembedded",
+            "url": "https://git.openembedded.org/bitbake",
+            "path": "layers/bitbake",
+            "revision": "2.8",
+            "upstream": "2.8"
+        },
+        {
+            "remote": "openembedded",
+            "url": "https://git.openembedded.org/openembedded-core",
+            "path": "layers/openembedded-core",
+            "revision": "scarthgap",
+            "upstream": "scarthgap"
+        },
+        {
+            "remote": "openembedded",
+            "url": "https://git.openembedded.org/meta-openembedded",
+            "path": "layers/meta-openembedded",
+            "revision": "scarthgap",
+            "upstream": "scarthgap"
+        },
+        {
+            "remote": "github",
+            "url": "https://github.com/agherzan/meta-raspberrypi",
+            "path": "layers/meta-raspberrypi",
+            "revision": "scarthgap",
+            "upstream": "scarthgap"
+        },
+        {
+            "remote": "github",
+            "url": "https://github.com/grembeter/meta-draco",
+            "path": "layers/meta-butterfly",
+            "revision": "scarthgap",
+            "upstream": "scarthgap"
+        }
+    ]
+}

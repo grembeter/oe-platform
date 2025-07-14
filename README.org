@@ -1,0 +1,41 @@
+To set up OpenEmbedded layers use ~set-up-layers~ script:
+
+#+BEGIN_EXAMPLE
+ ; ./set-up-layers -h
+usage: set-up-layers [-h] [-m JSON] [-d DIR] platform
+
+set-up-layers 1.0.0
+
+positional arguments:
+  platform              platform name, for example "draco"
+
+options:
+  -h, --help            show this help message and exit
+  -m JSON, --manifest-filename JSON
+                        manifest filename
+  -d DIR, --layers-dir DIR
+                        target layers directory
+#+END_EXAMPLE
+
+For example, ~./set-up-layers draco~ downloads git repositories and creates this structure:
+
+#+BEGIN_EXAMPLE
+ ; tree -L 2 .
+.
+├── bitbake-env
+├── layers
+│   ├── bitbake
+│   ├── bitbake-env
+│   ├── meta-butterfly
+│   ├── meta-openembedded
+│   ├── meta-raspberrypi
+│   └── openembedded-core
+├── LICENSE
+├── manifests
+│   └── butterfly
+├── README.org
+├── scripts
+│   ├── bitbake-env.template
+│   └── set-up-layers
+└── set-up-layers -> ./scripts/set-up-layers
+#+END_EXAMPLE

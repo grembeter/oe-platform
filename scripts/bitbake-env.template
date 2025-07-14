@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: Grygorii Tertychnyi
+
+MANIFEST_PLATFORM="@@MANIFEST_PLATFORM@@"
+
+if [ "$MANIFEST_PLATFORM" = "@@""MANIFEST_PLATFORM""@@" ]; then
+    echo ""
+    echo ' !!! MANIFEST_PLATFORM is not set, first run `set-up-layers <PLATFORM> ...`'
+    echo ""
+else
+    echo " ::: MANIFEST_PLATFORM=$MANIFEST_PLATFORM"
+
+    if ! test -d "$BUILDDIR"; then
+        BUILD_ENV_PATH="${BASH_SOURCE:-${(%):-%x}}"
+        BUILD_ENV_DIR=$(dirname "$BUILD_ENV_PATH")
+        BUILD_ENV_PATH=$(readlink -f "$BUILD_ENV_PATH")
+        TEMPLATECONF=$(dirname "$BUILD_ENV_PATH")/layers/meta-"$MANIFEST_PLATFORM"/conf/templates/default
+        echo " ::: TEMPLATECONF=$TEMPLATECONF"
+        if ! test -f "$BUILD_ENV_DIR"/conf/local.conf; then
+            BUILD_ENV_DIR="$1"
+        fi
+        . "$TEMPLATECONF"/../../../../openembedded-core/oe-init-build-env "$BUILD_ENV_DIR"
+        if test -d "$BUILDDIR"; then
+            PATH=$(readlink -f "$TEMPLATECONF"/../../../../../scripts):"$PATH"
+            ln --verbose --symbolic --force --no-target-directory "$BUILD_ENV_PATH" \
+               "$BUILDDIR"/$(basename "$BUILD_ENV_PATH")
+            ln --verbose --symbolic --force --no-target-directory \
+               $(readlink -f "$TEMPLATECONF"/../../../../) \
+               "$BUILDDIR"/source-dir
+        fi
+        unset BUILD_ENV_DIR BUILD_ENV_PATH
+    fi
+
+    bitbake --version \
+        && bitbake-layers show-layers \
+        && echo "Build environment is ready: $BUILDDIR"
+fi
